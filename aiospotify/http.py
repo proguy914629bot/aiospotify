@@ -149,7 +149,11 @@ class HTTPClient:
                     response_data = await utils.json_or_text(response)
 
                     if isinstance(response_data, str):
-                        raise exceptions.SpotifyException("Something went wrong, the Spotify API returned text.")
+                        error = exceptions.SpotifyException("Something went wrong, the Spotify API returned text.")
+                        error.resp = response
+                        error.text = response_data
+                        
+                        raise error
 
                     if 200 <= response.status < 300:
                         __log__.debug(f"{route.method} @ {route.url} received payload: {response_data}")
