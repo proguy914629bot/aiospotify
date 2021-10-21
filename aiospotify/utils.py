@@ -24,6 +24,11 @@ async def json_or_text(response: aiohttp.ClientResponse) -> dict[str, Any] | str
             return json.loads(text)
     except KeyError:
         pass
+    
+    try:
+        return await resp.json()
+    except:
+        pass
 
     return text
 
