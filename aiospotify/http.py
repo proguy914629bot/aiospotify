@@ -149,7 +149,7 @@ class HTTPClient:
                     response_data = await utils.json_or_text(response)
 
                     if isinstance(response_data, str):
-                        error = exceptions.SpotifyException("Something went wrong, the Spotify API returned text.")
+                        error = exceptions.SpotifyException("Something went wrong, the Spotify API returned text: %s", response_data)
                         error.resp = response
                         error.text = response_data
                         
